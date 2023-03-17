@@ -11,8 +11,8 @@ Return the value of generation
 def rabbit_bleeding():
     # Initialize the number of rabbits to 2
     rabbit_num = 2
-    # Initialize the generation count to 0
-    generation = 0
+    # Initialize the generation count to 1
+    generation = 1
     # While the number of rabbits is less than or equal to 100:
     while rabbit_num <= 100:
         # Increment the generation count by 1
@@ -24,4 +24,4 @@ def rabbit_bleeding():
 
 # Call the rabbit_bleeding function to execute the code and print the result
 print(rabbit_bleeding())
-#result:6
+#result:7
