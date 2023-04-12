@@ -1,0 +1,8 @@
+What proportion of cases have died (as of the latest information) in Germany?
+
+The result of the code shows in from 98 to 112 lines in the  File_covid.py
+
+Discussion for result:
+   There is no case in Germany before 2020-1-27,so there won't be a proportion of death from 2019-12-31 to 2020-1-27
+   Besides, the result shows that the proportion of died generally increased, and almost reachs 0.8% in the March
+   In conclusion, the epidemic of covid-19 in Germany in more and more serious during the Winter of 2020
