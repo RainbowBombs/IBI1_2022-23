@@ -1,0 +1,50 @@
+# Define a function
+# I check the sequence 3 by 3, in pratically biological way
+def pccc(seq):
+    # Convert the input sequence to uppercase to make it case-insensitive
+    SEQ=seq.upper()
+    end_point=-1
+    
+    # Check if the sequence contains the start codon "ATG"
+    if "ATG" in SEQ :
+        # If it does, find the index of the first occurrence of "ATG"
+        st_point=SEQ.index("ATG")
+        i=st_point+3
+        
+        # Loop through the sequence in increments of 3 nucleotides (i.e. codons)
+        while i+3<=len(SEQ):
+            # Check if the current codon is a stop codon "TGA"
+            condon=SEQ[i:i+3]
+            if condon=="TGA":
+                # If it is, find the index of the first occurrence of "TGA"
+                end_point=SEQ.index("TGA")
+                break
+            else:
+                # If it isn't, continue to the next codon
+                i+=3
+        
+        # Check if a stop codon was found
+        if  end_point==-1:
+            return "It is non-coding"
+        
+        # Calculate the percentage of the sequence that codes for protein
+        percentage=(end_point-st_point+3)/len(SEQ)
+        
+        # Classify the sequence as either protein-coding, non-coding, or unclear based on the percentage
+        if percentage>0.5:
+            result="protein-coding"
+        elif percentage<0.1:
+            result="non-coding"
+        else:
+            result="unclear"
+        
+        # Print the classification result and the percentage of the sequence that codes for protein
+        return print(f"It percentage is {percentage*100}%, it is {result}" )
+    
+    else:
+        # If the sequence does not contain the start codon "ATG", it is non-coding
+        return print("It is non-coding")
+    
+# Call the "pccc" function with a test sequence
+seq_try="AAAAAATGTTTAAAAAATTTTGAAAAAATTTTT"
+pccc(seq_try)
