@@ -1,0 +1,8 @@
+def MAC(house_value,salary):
+    """if the house_value=100 salary=30, you can input 100 and 50 into the function MAC
+    like MAC(100,30). It will return yes if the house worth	no more than five times	your annual	salary and return no if else"""
+    if 5*salary>=house_value:
+        return print("yes")
+    else:
+        return print("no")
+MAC(50,5)
