@@ -1,0 +1,19 @@
+class triathlon:
+    # Define the constructor method, which initializes the object with the provided arguments
+    def __init__(self,firstname,lastname,location,swim,cycle,run):
+        self.firstname=firstname # Set the object's "firstname" attribute to the provided "firstname" argument
+        self.lastname=lastname # Set the object's "lastname" attribute to the provided "lastname" argument
+        self.loaction=location # Set the object's "loaction" attribute to the provided "location" argument
+        self.swim=swim # Set the object's "swim" attribute to the provided "swim" argument
+        self.cycle=cycle # Set the object's "cycle" attribute to the provided "cycle" argument
+        self.run=run # Set the object's "run" attribute to the provided "run" argument
+    
+    # Define a method called "brief_information", which prints a brief summary of the athlete's information
+    def brief_information(self):
+        return print(f"The athlete called {self.firstname} {self.lastname}, his	competition	took place in {self.loaction}. His total score is {self.run+self.swim+self.cycle}")
+    
+# Create an instance of the "triathlon" class with the provided arguments
+tria=triathlon("Sam","Black","UK",50,50,100)
+
+# Call the "brief_information" method on the "tria" object to print the athlete's information
+tria.brief_information()
