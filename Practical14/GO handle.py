@@ -21,7 +21,7 @@ terms = root.getElementsByTagName('term')
 
 #We need to find all child nodes of one node and its child nodes until it reaches the bottom.
 #So we can get the number through calculating the number of parent nodes of the child nodes.
-#This function can get the id  of parent nodes
+#This function can get the id of parent nodes
 nodefamily = {}
 result_all = {}
 def findnodes(node_id, parent_ids):
@@ -30,7 +30,6 @@ def findnodes(node_id, parent_ids):
         parent_ids.add(mediate_id) 
         findnodes(mediate_id, parent_ids)
 
-#We need to get all nodes of each term
 #The information will be stored in the nodefamily.
 for term in terms:
     node_id = term.getElementsByTagName("id")[0].childNodes[0].data
@@ -39,7 +38,6 @@ for term in terms:
         mediate_ids.append(is_a.childNodes[0].data)
     nodefamily[node_id] = mediate_ids
     result_all[node_id] = 0
-
 #Now we need to calculate all parent nodes of each child node.
 #This equals the number of all child nodes of each parent node.
 for key in nodefamily.keys():
@@ -58,12 +56,14 @@ for term in terms:
     	  id = term.getElementsByTagName('id')[0].childNodes[0].data
     	  term_name = term.getElementsByTagName('name')[0].childNodes[0].data
         child_count = result_all[go_id]
-        # Write the information to the spreadsheet
+        
         sheet.cell(row=row_num, column=1, value=id)
         sheet.cell(row=row_num, column=2, value=term_name)
         sheet.cell(row=row_num, column=3, value=defstr)
         sheet.cell(row=row_num, column=4, value=child_count)
         row_num += 1
+        # Write the information into the spreadsheet
 
 # Save the workbook
 workbook.save('C:/Users/DELL/OneDrive/桌面/progaming/go_terms.xlsx')
+#The result is shown in a another file
