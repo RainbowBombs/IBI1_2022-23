@@ -1,5 +1,6 @@
 import xml.dom.minidom as minidom
-from openpyxl import Workbook
+import pandas as pd
+
 # Parse the XML file
 dom = minidom.parse("C:/Users/DELL/OneDrive/桌面/progaming/go_obo.xml")
 root = dom.documentElement
@@ -34,35 +35,26 @@ for key in nodeparents.keys():
         result[parent_id] += 1
         #if a node is included in another node's ancestor it surely should take it into the childnodes
         
-# Initialize Excel workbook and sheet
-workbook = Workbook()
-sheet = workbook.active
-sheet.title = 'GO Terms'
-
-# Set column headers
-headers = ['GO_ID', 'Term Name', 'Definition', 'Child Nodes']
-for col_num, header in enumerate(headers, 1):
-    sheet.cell(row=1, column=col_num, value=header)
-
+# Initialize Excel dataframe
+go_id=[]
+term_name=[]
+defstr=[]
+child_count=[]
 # Find 'autophagosome' related gene ontology terms and their child nodes
 row_num = 2  # Start from row 2        
 for term in terms:
-    go_id = term.getElementsByTagName('id')[0].childNodes[0].data
-    term_name = term.getElementsByTagName('name')[0].childNodes[0].data
-    defstr = term.getElementsByTagName('defstr')[0].childNodes[0].data
-
+    new_defstr = term.getElementsByTagName('defstr')[0].childNodes[0].data
+    if 'autophagosome' in new_defstr.lower():
+        go_id_new=term.getElementsByTagName('id')[0].childNodes[0].data
+        go_id.append(go_id_new)
+        term_name.append(term.getElementsByTagName('name')[0].childNodes[0].data)
+        defstr.append(new_defstr)
     # Check if 'autophagosome' is present in the definition string
-    if 'autophagosome' in defstr.lower():
-        child_count = result[go_id]
-        # Write the information to the spreadsheet
-        sheet.cell(row=row_num, column=1, value=go_id)
-        sheet.cell(row=row_num, column=2, value=term_name)
-        sheet.cell(row=row_num, column=3, value=defstr)
-        sheet.cell(row=row_num, column=4, value=child_count)
-        row_num += 1
-
-# Save the workbook
-workbook.save('C:/Users/DELL/OneDrive/桌面/progaming/go_terms.xlsx')
+        child_count.append(result[go_id_new])
+        # Write the information to the dataframe
+df=pd.DataFrame({'GO_ID':go_id, 'Term_Name':term_name, 'Definition':defstr, 'Child_Nodes':child_count})
+# Save the dataframe
+df.to_excel('C:/Users/DELL/OneDrive/桌面/progaming/go_terms.xlsx')
 
 # I suppose there is many same counting process during the code running, especially in the findparentsnodes part. However, I didn't come up with a better one and maybe I can use something to store the things have already counted
 #The result is shown in a another file
